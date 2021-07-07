@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import DayList from "./DayList";
 import "components/Application.scss";
+import Appointment from "./Appointment";
+import { select } from "async";
 
 const days = [
   {
@@ -79,7 +81,9 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        {appointments.map((appointment) => (
+          <Appointment key={appointment.id} {...appointment} />
+        ))}
       </section>
     </main>
   );
