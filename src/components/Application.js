@@ -4,7 +4,6 @@ import "components/Application.scss";
 import Appointment from "./Appointment";
 import { select } from "async";
 import axios from "axios";
-import { response } from "express";
 
 const appointments = [
   {
@@ -46,15 +45,22 @@ const appointments = [
 ];
 
 export default function Application(props) {
-  const [day, setDay] = useState("Monday");
-  const [days, setDays] = useState([]);
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {},
+  });
+
+  const setDay = (day) => setState((prev) => ({ ...prev, day }));
+  const setDays = (days) => setState((prev) => ({ ...prev, days }));
+
   useEffect(() => {
-    const daysURL = `/api/days`;
-    axios
-      .get(daysURL)
-      .then((res) => setDays(res.data))
-      .catch((err) => console.log(err));
+    axios.get("/api/days").then((response) => {
+      setDays(response.data);
+      console.log(response.data);
+    });
   }, []);
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -65,7 +71,7 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList days={days} day={day} setDay={setDay} />
+          <DayList days={state.days} day={state.day} setDay={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
