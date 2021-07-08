@@ -15,7 +15,6 @@ export default function Application(props) {
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
   //const setDays = (days) => setState((prev) => ({ ...prev, days }));
   const dailyAppointments = selectors.getAppointmentsForDay(state, state.day);
-  console.log("$$$$$$$$$", state);
 
   useEffect(() => {
     Promise.all([
@@ -31,6 +30,21 @@ export default function Application(props) {
       }));
     });
   }, []);
+
+  const appointments = selectors.getAppointmentsForDay(state, state.day);
+
+  const schedule = appointments.map((appointment) => {
+    const interview = selectors.getInterview(state, appointment.interview);
+
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+      />
+    );
+  });
 
   return (
     <main className="layout">

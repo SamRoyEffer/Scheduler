@@ -7,3 +7,14 @@ export function getAppointmentsForDay(state, day) {
     return [];
   }
 }
+
+export const getInterview = (state, interview) => {
+  try {
+    return {
+      student: interview.student,
+      interviewer: { ...state.interviewers[interview.interviewer] },
+    };
+  } catch (err) {
+    return null;
+  }
+};
