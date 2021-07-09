@@ -1,20 +1,17 @@
 export function getAppointmentsForDay(state, day) {
-  try {
-    return state.days
-      .find((stateDay) => stateDay.name === day)
-      .appointments.map((appointmentId) => state.appointments[appointmentId]);
-  } catch (err) {
-    return [];
-  }
+  const d = state.days.find((stateDay) => stateDay.name === day);
+  return d
+    ? d.appointments.map((appointmentId) => state.appointments[appointmentId])
+    : [];
 }
 
 export const getInterview = (state, interview) => {
-  try {
+  if (interview) {
     return {
       student: interview.student,
       interviewer: { ...state.interviewers[interview.interviewer] },
     };
-  } catch (err) {
+  } else {
     return null;
   }
 };

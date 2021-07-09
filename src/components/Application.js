@@ -14,7 +14,6 @@ export default function Application(props) {
 
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
   //const setDays = (days) => setState((prev) => ({ ...prev, days }));
-  const dailyAppointments = selectors.getAppointmentsForDay(state, state.day);
 
   useEffect(() => {
     Promise.all([
@@ -35,7 +34,6 @@ export default function Application(props) {
 
   const schedule = appointments.map((appointment) => {
     const interview = selectors.getInterview(state, appointment.interview);
-
     return (
       <Appointment
         key={appointment.id}
@@ -64,11 +62,7 @@ export default function Application(props) {
           alt="Lighthouse Labs"
         />
       </section>
-      <section className="schedule">
-        {dailyAppointments.map((appointment) => (
-          <Appointment key={appointment.id} {...appointment} />
-        ))}
-      </section>
+      <section className="schedule">{schedule}</section>
     </main>
   );
 }
