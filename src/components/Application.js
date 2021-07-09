@@ -40,9 +40,14 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+        bookInterview={bookInterview}
       />
     );
   });
+
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+  }
 
   return (
     <main className="layout">
