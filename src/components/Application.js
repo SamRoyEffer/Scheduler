@@ -44,12 +44,12 @@ export default function Application(props) {
         interview={interview}
         interviewers={state.interviewers}
         bookInterview={bookInterview}
-        deleteInterview={deleteInterview}
+        destroy={destroy}
       />
     );
   });
 
-  function deleteInterview(id) {
+  function destroy(id) {
     return axios.delete(`/api/appointments/${id}`).then((res) => {
       setState((prev) => ({
         ...prev,

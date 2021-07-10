@@ -18,6 +18,8 @@ const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM_DELETE = "CONFIRM_DELETE";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
@@ -32,17 +34,18 @@ export default function Appointment(props) {
     transition(SAVING);
     props
       .bookInterview(props.id, interview)
-      .then(() => transition(SHOW))
-      .catch(() => transition(EMPTY));
+      .then(() => transition(SHOW, true))
+      .catch((err) => transition(ERROR_SAVE, true));
   }
 
-  function deleteInterview() {
-    transition(DELETING);
+  function destroy(event) {
+    transition(DELETING, true);
     props
-      .deleteInterview(props.id)
-      .then(() => transition(EMPTY))
+      .destroy(props.id)
+      .then(() => transition(EMPTY, true))
       .catch((err) => {
         console.log("ERROR", err);
+        transition(ERROR_DELETE, true);
       });
   }
 
@@ -75,11 +78,17 @@ export default function Appointment(props) {
       {mode === CONFIRM_DELETE && (
         <Confirm
           message={"Please confirm you want to delete this interview."}
-          onConfirm={deleteInterview}
+          onConfirm={destroy}
           onCancel={back}
         />
       )}
       {mode === DELETING && <Status message={"DELETING"} />}
+      {mode === ERROR_SAVE && (
+        <Error message={"Unable to save to server."} onClose={back} />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error message={"Unable to delete from server"} onClose={back} />
+      )}
     </article>
   );
 }
