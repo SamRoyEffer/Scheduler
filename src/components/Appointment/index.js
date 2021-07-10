@@ -9,6 +9,7 @@ import Status from "./Status";
 import Error from "./Error";
 import Form from "./Form";
 import useVisualMode, * as vm from "hooks/useVisualMode";
+import axios from "axios";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -19,25 +20,29 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
   function save(name, interviewer) {
+    console.log("PROPS", props);
     const interview = {
       student: name,
       interviewer,
     };
-    props.bookInterview(props.id, interview);
+    props
+      .bookInterview(props.id, interview)
+      .then(transition(SHOW))
+      .catch(() => transition(EMPTY));
   }
   return (
     <article className="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
 
-      {mode === SHOW && (
+      {mode === SHOW && props.interview && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
         />
       )}
       {mode === CREATE && (
-        <Form onSave={save} interviewers={[]} onCancel={back} />
+        <Form onSave={save} interviewers={props.interviewers} onCancel={back} />
       )}
     </article>
   );

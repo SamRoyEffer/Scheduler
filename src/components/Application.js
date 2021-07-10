@@ -10,6 +10,7 @@ export default function Application(props) {
     day: "Monday",
     days: [],
     appointments: {},
+    interviewers: [],
   });
 
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
@@ -40,15 +41,30 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+        interviewers={state.interviewers}
         bookInterview={bookInterview}
       />
     );
   });
-
   function bookInterview(id, interview) {
-    console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    return axios
+      .put(`/api/appointments/${id}`, appointment)
+      .then((res) => {
+        setState({
+          ...state,
+          appointments,
+        });
+      })
+      .catch((err) => console.log(`PUT /api/appointments/${id}`, err));
   }
-
   return (
     <main className="layout">
       <section className="sidebar">
@@ -67,7 +83,10 @@ export default function Application(props) {
           alt="Lighthouse Labs"
         />
       </section>
-      <section className="schedule">{schedule}</section>
+      <section className="schedule">
+        {schedule}
+        <Appointment time={props.time} />
+      </section>
     </main>
   );
 }
