@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import DayList from "./DayList";
 import "components/Application.scss";
 import Appointment from "./Appointment";
@@ -22,6 +22,7 @@ export default function Application(props) {
       axios.get("/api/appointments"),
       axios.get("/api/interviewers"),
     ]).then((all) => {
+      console.log("ALL", all);
       setState((prev) => ({
         ...prev,
         days: all[0].data,
@@ -43,9 +44,26 @@ export default function Application(props) {
         interview={interview}
         interviewers={state.interviewers}
         bookInterview={bookInterview}
+        deleteInterview={deleteInterview}
       />
     );
   });
+
+  function deleteInterview(id) {
+    return axios.delete(`/api/appointments/${id}`).then((res) => {
+      setState((prev) => ({
+        ...prev,
+        appointments: {
+          ...prev.appointments,
+          [id]: {
+            ...prev.appointments[id],
+            interview: null,
+          },
+        },
+      }));
+    });
+  }
+
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],

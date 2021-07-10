@@ -1,5 +1,7 @@
 export function getAppointmentsForDay(state, day) {
+  // console.log("STATE---------", state);
   const d = state.days.find((stateDay) => stateDay.name === day);
+  console.log("DAY", d);
   return d
     ? d.appointments.map((appointmentId) => state.appointments[appointmentId])
     : [];
