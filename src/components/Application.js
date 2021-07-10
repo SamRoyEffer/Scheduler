@@ -1,37 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import DayList from "./DayList";
 import "components/Application.scss";
 import Appointment from "./Appointment";
 import axios from "axios";
 import * as selectors from "../helpers/selectors";
+import useApplicationData from "hooks/useApplicationData";
 
 export default function Application(props) {
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: [],
-  });
+  const [destroy, bookInterview, setDay, state] = useApplicationData();
 
-  const setDay = (day) => setState((prev) => ({ ...prev, day }));
   //const setDays = (days) => setState((prev) => ({ ...prev, days }));
-
-  useEffect(() => {
-    Promise.all([
-      axios.get("/api/days"),
-      axios.get("/api/appointments"),
-      axios.get("/api/interviewers"),
-    ]).then((all) => {
-      console.log("ALL", all);
-      setState((prev) => ({
-        ...prev,
-        days: all[0].data,
-        appointments: all[1].data,
-        interviewers: all[2].data,
-      }));
-    });
-  }, []);
-
+  console.log("STATE", state);
   const appointments = selectors.getAppointmentsForDay(state, state.day);
 
   const schedule = appointments.map((appointment) => {
@@ -49,40 +28,6 @@ export default function Application(props) {
     );
   });
 
-  function destroy(id) {
-    return axios.delete(`/api/appointments/${id}`).then((res) => {
-      setState((prev) => ({
-        ...prev,
-        appointments: {
-          ...prev.appointments,
-          [id]: {
-            ...prev.appointments[id],
-            interview: null,
-          },
-        },
-      }));
-    });
-  }
-
-  function bookInterview(id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview },
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-    return axios
-      .put(`/api/appointments/${id}`, appointment)
-      .then((res) => {
-        setState({
-          ...state,
-          appointments,
-        });
-      })
-      .catch((err) => console.log(`PUT /api/appointments/${id}`, err));
-  }
   return (
     <main className="layout">
       <section className="sidebar">
