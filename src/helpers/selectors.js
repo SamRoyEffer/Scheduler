@@ -23,19 +23,6 @@ export function getInterviewersForDay(state, day) {
     : [];
 }
 
-export const updateSpots = (appointments, days, dayI) => {
-  const day = days.find((day) => day.name === dayI);
-
-  day.spots = day.appointments.filter(
-    (appointmentId) => !appointments[appointmentId].interview
-  ).length;
-  console.log(
-    "🚀 ~ file: selectors.js ~ line 32 ~ updateSpots ~ day.spots",
-    day.spots
-  );
-  return days;
-};
-
 export const updateSpots2 = (days, id, value) => {
   days.forEach((day) => {
     if (day.appointments.includes(id)) {
