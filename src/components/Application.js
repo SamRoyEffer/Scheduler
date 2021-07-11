@@ -10,7 +10,6 @@ export default function Application(props) {
   const [destroy, bookInterview, setDay, state] = useApplicationData();
 
   //const setDays = (days) => setState((prev) => ({ ...prev, days }));
-  console.log("STATE", state);
   const appointments = selectors.getAppointmentsForDay(state, state.day);
 
   const schedule = appointments.map((appointment) => {

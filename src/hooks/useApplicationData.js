@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import * as hp from "helpers/selectors";
 import axios from "axios";
 const defaultState = {
   day: "Monday",
@@ -6,6 +7,8 @@ const defaultState = {
   appointments: {},
   interviewers: [],
 };
+
+const SET_INTERVIEW = "SET_INTERVIEW";
 
 export default function useApplicationData() {
   const [state, setState] = useState(defaultState);
@@ -16,7 +19,6 @@ export default function useApplicationData() {
       axios.get("/api/appointments"),
       axios.get("/api/interviewers"),
     ]).then((all) => {
-      console.log("ALL", all);
       setState((prev) => ({
         ...prev,
         days: all[0].data,
@@ -42,6 +44,7 @@ export default function useApplicationData() {
           ...state,
           appointments,
         });
+        hp.updateSpots2([...state.days], id, -1);
       })
       .catch((err) => console.log(`PUT /api/appointments/${id}`, err));
   }
@@ -49,19 +52,23 @@ export default function useApplicationData() {
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
 
   function destroy(id) {
-    return axios.delete(`/api/appointments/${id}`).then((res) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+    const newAppointments = {
+      ...state.appointments[id],
+      [id]: appointment,
+    };
+    const newDays = hp.updateSpots2([...state.days], id, 1);
+    return axios.delete(`/api/appointments/${id}`).then(() => {
       setState((prev) => ({
         ...prev,
-        appointments: {
-          ...prev.appointments,
-          [id]: {
-            ...prev.appointments[id],
-            interview: null,
-          },
-        },
+        newDays,
+        newAppointments,
       }));
     });
   }
-
+  console.log("@@@@@@@", state);
   return [destroy, bookInterview, setDay, state];
 }
