@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React from "react";
 
 import "./styles.scss";
 import Header from "./Header";
@@ -8,8 +8,7 @@ import Confirm from "./Confirm";
 import Status from "./Status";
 import Error from "./Error";
 import Form from "./Form";
-import useVisualMode, * as vm from "hooks/useVisualMode";
-import axios from "axios";
+import useVisualMode from "hooks/useVisualMode";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -63,13 +62,21 @@ export default function Appointment(props) {
         />
       )}
       {mode === CREATE && (
-        <Form onSave={save} interviewers={props.interviewers} onCancel={back} />
+        <Form
+          onSave={save}
+          interviewers={props.interviewers}
+          day={props.day}
+          days={props.days}
+          onCancel={back}
+        />
       )}
       {mode === EDIT && (
         <Form
           name={props.interview.student}
           interviewer={props.interview.interviewer.id}
           interviewers={props.interviewers}
+          day={props.day}
+          days={props.days}
           onSave={save}
           onCancel={back}
         />

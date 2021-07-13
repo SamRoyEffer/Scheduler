@@ -8,8 +8,6 @@ import useApplicationData from "hooks/useApplicationData";
 
 export default function Application(props) {
   const [destroy, bookInterview, setDay, state] = useApplicationData();
-
-  //const setDays = (days) => setState((prev) => ({ ...prev, days }));
   const appointments = selectors.getAppointmentsForDay(state, state.day);
 
   const schedule = appointments.map((appointment) => {
@@ -23,6 +21,8 @@ export default function Application(props) {
         interviewers={state.interviewers}
         bookInterview={bookInterview}
         destroy={destroy}
+        days={state.days}
+        day={state.day}
       />
     );
   });

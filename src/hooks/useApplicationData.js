@@ -8,8 +8,6 @@ const defaultState = {
   interviewers: [],
 };
 
-const SET_INTERVIEW = "SET_INTERVIEW";
-
 export default function useApplicationData() {
   const [state, setState] = useState(defaultState);
 
@@ -69,6 +67,5 @@ export default function useApplicationData() {
       }));
     });
   }
-  console.log("@@@@@@@", state);
   return [destroy, bookInterview, setDay, state];
 }
