@@ -37,7 +37,8 @@ export default function useApplicationData() {
     };
     return axios
       .put(`/api/appointments/${id}`, appointment)
-      .then((res) => {
+      .then(() => {
+        console.log("STATE>DAYS", state.days);
         const newSpots = hp.updateSpots2([...state.days], id, -1);
         setState({
           ...state,
