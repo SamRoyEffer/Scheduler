@@ -38,11 +38,12 @@ export default function useApplicationData() {
     return axios
       .put(`/api/appointments/${id}`, appointment)
       .then((res) => {
+        const newSpots = hp.updateSpots2([...state.days], id, -1);
         setState({
           ...state,
           appointments,
+          days: newSpots,
         });
-        hp.updateSpots2([...state.days], id, -1);
       })
       .catch((err) => console.log(`PUT /api/appointments/${id}`, err));
   }
