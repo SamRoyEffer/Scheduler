@@ -84,12 +84,12 @@ export default function Appointment(props) {
       {mode === SAVING && <Status message={"SAVING"} />}
       {mode === CONFIRM_DELETE && (
         <Confirm
-          message={"Please confirm you want to delete this interview."}
+          message={"Are you sure you would like to delete?"}
           onConfirm={destroy}
           onCancel={back}
         />
       )}
-      {mode === DELETING && <Status message={"DELETING"} />}
+      {mode === DELETING && <Status message={"Deleting"} />}
       {mode === ERROR_SAVE && (
         <Error message={"Unable to save to server."} onClose={back} />
       )}
