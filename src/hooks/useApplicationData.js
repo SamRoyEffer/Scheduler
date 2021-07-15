@@ -38,12 +38,12 @@ export default function useApplicationData() {
     return axios
       .put(`/api/appointments/${id}`, appointment)
       .then(() => {
-        console.log("STATE>DAYS", state.days);
-        const newSpots = hp.updateSpots2([...state.days], id, -1);
+        const isUpdate = state.appointments[id].interview;
+        const days = hp.updateSpots2([...state.days], id, isUpdate ? 0 : -1);
         setState({
           ...state,
           appointments,
-          days: newSpots,
+          days,
         });
       })
       .catch((err) => console.log(`PUT /api/appointments/${id}`, err));
@@ -56,16 +56,16 @@ export default function useApplicationData() {
       ...state.appointments[id],
       interview: null,
     };
-    const newAppointments = {
-      ...state.appointments[id],
+    const appointments = {
+      ...state.appointments,
       [id]: appointment,
     };
-    const newDays = hp.updateSpots2([...state.days], id, 1);
+    const days = hp.updateSpots2([...state.days], id, 1);
     return axios.delete(`/api/appointments/${id}`).then(() => {
       setState((prev) => ({
         ...prev,
-        newDays,
-        newAppointments,
+        days,
+        appointments,
       }));
     });
   }
