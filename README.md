@@ -2,6 +2,16 @@
 
 A single page app that uses an SQL database, Storybook for testing, React for front-end developpment, Axios for api, with jest and and Cypress for testing.
 
+## Dependencies
+
+Axios
+@testing-library/react-nooks
+react-test-renderer
+Storybook
+Cypress
+node-sass
+prop-types
+
 ## Setup
 
 Install dependencies with `npm install`.
