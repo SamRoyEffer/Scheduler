@@ -17,3 +17,6 @@ npm test
 ## Running Storybook Visual Testbed
 
 npm run storybook
+
+!["Main Page"](https://github.com/SamRoyEffer/Scheduler/blob/master/docs/mainScreen.png?raw=true)
+!["Creating a New Interview"](https://github.com/SamRoyEffer/Scheduler/blob/master/docs/createFrom.png?raw=true)
