@@ -1,23 +1,19 @@
 # Interview Scheduler
 
+A single page app that uses an SQL database, Storybook for testing, React for front-end developpment, Axios for api, with jest and and Cypress for testing.
+
 ## Setup
 
 Install dependencies with `npm install`.
 
 ## Running Webpack Development Server
 
-```sh
 npm start
-```
 
 ## Running Jest Test Framework
 
-```sh
 npm test
-```
 
 ## Running Storybook Visual Testbed
 
-```sh
 npm run storybook
-```
