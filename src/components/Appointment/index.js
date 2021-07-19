@@ -74,6 +74,7 @@ export default function Appointment(props) {
           day={props.day}
           days={props.days}
           onCancel={back}
+          onKeyPress={props.onKeyPress}
         />
       )}
       {mode === EDIT && (
@@ -85,6 +86,7 @@ export default function Appointment(props) {
           days={props.days}
           onSave={save}
           onCancel={back}
+          onKeyPress={props.onKeyPress}
         />
       )}
       {mode === SAVING && <Status message={"SAVING"} />}

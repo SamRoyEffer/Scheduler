@@ -38,6 +38,13 @@ export default function Form(props) {
     setError("");
     props.onSave(name, interviewer);
   }
+
+  function enterPress(event) {
+    if (event.key === "Enter" || event.key === "NumpadEnter") {
+      event.preventDefault();
+      validate();
+    }
+  }
   //resets the form when new interview is esstablished
   function reset() {
     setName("");
@@ -56,6 +63,7 @@ export default function Form(props) {
             placeholder="Enter Student Name"
             onChange={(event) => setName(event.target.value)}
             data-testid="student-name-input"
+            onKeyPress={enterPress}
           />
         </form>
         <section className="appointment__validation">{error}</section>
