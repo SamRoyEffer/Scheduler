@@ -4,13 +4,13 @@ A single page app that uses an SQL database, Storybook for testing, React for fr
 
 ## DEV-Dependencies
 
-Axios
-@testing-library/react-nooks
-react-test-renderer
-Storybook
-Cypress
-node-sass
-prop-types
+Axios,
+@testing-library/react-nooks,
+react-test-renderer,
+Storybook,
+Cypress,
+node-sass,
+prop-types,
 Babble
 
 ## Setup
