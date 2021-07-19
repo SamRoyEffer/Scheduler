@@ -62,3 +62,17 @@ export const updateSpots3 = (state, action) => {
   days.splice(dayIndex, 1, day);
   return days;
 };
+
+export function updateSpots4(state, creation) {
+  for (let i = 0; i < state.days.length; i++) {
+    if (state.days[i].name === state.day) {
+      if (creation === true) {
+        state.days[i].spots -= 1;
+        return state;
+      } else if (creation === false) {
+        state.days[i].spots += 1;
+        return state;
+      }
+    }
+  }
+}

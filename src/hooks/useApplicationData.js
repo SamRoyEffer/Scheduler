@@ -35,18 +35,16 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
-    return axios
-      .put(`/api/appointments/${id}`, appointment)
-      .then(() => {
-        const isUpdate = state.appointments[id].interview;
-        const days = hp.updateSpots2([...state.days], id, isUpdate ? 0 : -1);
-        setState({
-          ...state,
-          appointments,
-          days,
-        });
-      })
-      .catch((err) => console.log(`PUT /api/appointments/${id}`, err));
+    return axios.put(`/api/appointments/${id}`, appointment).then(() => {
+      const isUpdate = state.appointments[id].interview;
+      const days = hp.updateSpots2([...state.days], id, isUpdate ? 0 : -1);
+      setState({
+        ...state,
+        appointments,
+        days,
+      });
+    });
+    // .catch(() => console.log(`PUT /api/appointments/${id}`));
   }
 
   const setDay = (day) => setState((prev) => ({ ...prev, day }));

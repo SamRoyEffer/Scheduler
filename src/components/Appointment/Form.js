@@ -21,29 +21,15 @@ export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
 
-  // const state2 = state;
-  // state2.days = props.days;
-  // state2.interviewers = props.interviewers;
-
   const interviewData = getInterviewersForDay(state, props.day);
 
-  const updateState = (data) => {
-    setState(
-      data
-        ? {
-            ...state,
-            ...Button(
-              data.name && data.value
-                ? { [data.name]: data.value }
-                : { ...data }
-            ),
-          }
-        : defaultState
-    );
-  };
   function validate() {
-    if (name === "") {
+    if (!name) {
       setError("Student name cannot be blank");
+      return;
+    }
+    if (!interviewer) {
+      setError("Please Select Interviewer");
       return;
     }
 

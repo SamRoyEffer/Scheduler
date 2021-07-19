@@ -26,15 +26,19 @@ export default function Appointment(props) {
   );
 
   function save(name, interviewer) {
+    transition(SAVING, true);
     const interview = {
       student: name,
       interviewer,
     };
-    transition(SAVING);
     props
       .bookInterview(props.id, interview)
-      .then(() => transition(SHOW, true))
-      .catch((err) => transition(ERROR_SAVE, true));
+      .then(() => {
+        transition(SHOW, true);
+      })
+      .catch(() => {
+        transition(ERROR_SAVE, true);
+      });
   }
 
   function destroy(event) {
@@ -43,6 +47,7 @@ export default function Appointment(props) {
       .destroy(props.id)
       .then(() => transition(EMPTY, true))
       .catch((err) => {
+        console.log("PUTS SOME WORDS", err);
         transition(ERROR_DELETE, true);
       });
   }
