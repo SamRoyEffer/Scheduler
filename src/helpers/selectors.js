@@ -24,6 +24,7 @@ export function getInterviewersForDay(state, day) {
     : [];
 }
 
+//gets spots for the day and updates the spots of the day depending on if the interview si deleted or added
 export const updateSpots2 = (days, id, value) => {
   return days.map((day) => {
     if (day.appointments.includes(id)) {
@@ -36,43 +37,30 @@ export const updateSpots2 = (days, id, value) => {
   });
 };
 
-export const updateSpots = (appointments, days, dayI) => {
-  const day = days.find((day) => day.name === dayI);
+//two other methods to update spots
+// export const updateSpots = (appointments, days, dayI) => {
+//   const day = days.find((day) => day.name === dayI);
 
-  day.spots = day.appointments.filter(
-    (appointmentId) => !appointments[appointmentId].interview
-  ).length;
+//   day.spots = day.appointments.filter(
+//     (appointmentId) => !appointments[appointmentId].interview
+//   ).length;
 
-  return days;
-};
+//   return days;
+// };
 
-const actions = {
-  update: 0,
-  create: -1,
-  delete: 1,
-};
+// const actions = {
+//   update: 0,
+//   create: -1,
+//   delete: 1,
+// };
 
-export const updateSpots3 = (state, action) => {
-  const dayIndex = state.days.findIndex((day) => day.name === state.day);
-  const day = {
-    ...state.days[dayIndex],
-    spots: parseInt(state.days[dayIndex].spots) + actions[action],
-  };
-  const days = [...state.days];
-  days.splice(dayIndex, 1, day);
-  return days;
-};
-
-export function updateSpots4(state, creation) {
-  for (let i = 0; i < state.days.length; i++) {
-    if (state.days[i].name === state.day) {
-      if (creation === true) {
-        state.days[i].spots -= 1;
-        return state;
-      } else if (creation === false) {
-        state.days[i].spots += 1;
-        return state;
-      }
-    }
-  }
-}
+// export const updateSpots3 = (state, action) => {
+//   const dayIndex = state.days.findIndex((day) => day.name === state.day);
+//   const day = {
+//     ...state.days[dayIndex],
+//     spots: parseInt(state.days[dayIndex].spots) + actions[action],
+//   };
+//   const days = [...state.days];
+//   days.splice(dayIndex, 1, day);
+//   return days;
+// };

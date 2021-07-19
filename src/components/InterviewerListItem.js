@@ -2,6 +2,8 @@ import React from "react";
 import "components/InterviewerListItem.scss";
 import classNames from "classnames";
 
+//get the specfic list of interviewers for the selected day
+
 export default function InterviewerListItem(props) {
   const interviewClass = classNames("interviewers__item", {
     "interviewers__item--selected": props.selected,

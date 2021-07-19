@@ -8,6 +8,8 @@ const defaultState = {
   interviewers: [],
 };
 
+// uses specific functions and passes them to the desired location throug requires
+
 export default function useApplicationData() {
   const [state, setState] = useState(defaultState);
 
@@ -44,7 +46,6 @@ export default function useApplicationData() {
         days,
       });
     });
-    // .catch(() => console.log(`PUT /api/appointments/${id}`));
   }
 
   const setDay = (day) => setState((prev) => ({ ...prev, day }));

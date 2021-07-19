@@ -1,5 +1,7 @@
 import React from "react";
 
+// shows different pages of the form when edit, save and creating
+
 export default function Show(props) {
   return (
     <main className="appointment__card appointment__card--show">

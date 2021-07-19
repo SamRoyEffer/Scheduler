@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import DayList from "./DayList";
 import "components/Application.scss";
 import Appointment from "./Appointment";
-import axios from "axios";
 import * as selectors from "../helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
+
+// main application adn redering of scheduler
 
 export default function Application(props) {
   const [destroy, bookInterview, setDay, state] = useApplicationData();

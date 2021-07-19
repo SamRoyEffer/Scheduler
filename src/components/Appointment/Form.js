@@ -23,6 +23,8 @@ export default function Form(props) {
 
   const interviewData = getInterviewersForDay(state, props.day);
 
+  //validates the form for a user and interviewer
+
   function validate() {
     if (!name) {
       setError("Student name cannot be blank");
@@ -36,7 +38,7 @@ export default function Form(props) {
     setError("");
     props.onSave(name, interviewer);
   }
-
+  //resets the form when new interview is esstablished
   function reset() {
     setName("");
     setInterviewer("");

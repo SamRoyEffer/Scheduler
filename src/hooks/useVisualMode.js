@@ -3,6 +3,8 @@ import { useState } from "react";
 export const EMPTY = "EMPTY";
 export const SHOW = "SHOW";
 
+//change history with new argument to the previous history
+
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
